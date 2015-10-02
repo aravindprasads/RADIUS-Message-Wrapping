@@ -39,7 +39,8 @@ int main(int argc, char**argv)
     long long data_len, msg_start;
     uint16_t packet_len = 0;
     long long msg_no = 0;
-
+    
+    /* Create a UDP Socket */
     sockfd=socket(AF_INET,SOCK_DGRAM,0);
 
     memset(&servaddr,0,sizeof(servaddr));
@@ -63,7 +64,6 @@ int main(int argc, char**argv)
         data_len = recvfrom(sockfd,mesg,MSG_SIZE,0, (struct sockaddr *)&cliaddr,&len);
         LOG("\n\r=====Received Msg from Client====");
         TRACE("\n\rdata_len = %llu\n\r", data_len);
-
         msg_start = 0;
         msg_no = 0;
         while(msg_start < data_len)
