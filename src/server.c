@@ -4,14 +4,16 @@
 #include <string.h>
 
 #define MSG_SIZE 55000
+#define AUTH_SIZE 16
+#define AVP_SIZE 14
 
 typedef struct _radius_pkt_t
 {
     uint8_t code;
     uint8_t id;
     uint16_t length;
-    char auth[16];
-    char avp[14];
+    char auth[AUTH_SIZE];
+    char avp[AVP_SIZE];
 }rad_pkt_t;
 
 int main(int argc, char**argv)
@@ -22,9 +24,9 @@ int main(int argc, char**argv)
     socklen_t len;
     char mesg[MSG_SIZE]= {0};
     char reply_msg[MSG_SIZE]= {0};
-    char authentic[16] = {0xec, 0xfe, 0x3d, 0x2f, 0xe4, 0x47, 0x3e, 0xc6, 0x29, 0x90, 
+    char authentic[AUTH_SIZE] = {0xec, 0xfe, 0x3d, 0x2f, 0xe4, 0x47, 0x3e, 0xc6, 0x29, 0x90, 
                           0x95, 0xee, 0x46, 0xae, 0xdf, 0x77};
-    char avp[14] = {0x05, 0x06, 0x00, 0x00, 0x10, 0x7f, 
+    char avp[AVP_SIZE] = {0x05, 0x06, 0x00, 0x00, 0x10, 0x7f, 
                     0x01, 0x08, 0x61, 0x64, 0x6d, 0x69, 0x6e, '\0'};
     long long data_len, msg_start;
     uint16_t packet_len = 0;
