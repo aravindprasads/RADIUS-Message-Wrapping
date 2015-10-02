@@ -6,6 +6,13 @@
 #define MSG_SIZE 55000
 #define AUTH_SIZE 16
 #define AVP_SIZE 14
+#define RAD_REQUEST 1
+#define RAD_ACCEPT 2
+#define RAD_PKT_ID 1
+
+#define LOG(args...) printf(args)
+#define TRACE_ENABLE 0
+#define TRACE(args...) if(TRACE_ENABLE) printf(args) 
 
 typedef struct _radius_pkt_t
 {
@@ -43,37 +50,37 @@ int main(int argc, char**argv)
     //keep the reply msg ready
     rad_pkt_t *pkt;
     pkt = (rad_pkt_t *)reply_msg;
-    pkt->code = 2;
-    pkt->id = 1;
+    pkt->code = RAD_ACCEPT;
+    pkt->id = RAD_PKT_ID;
     memcpy(&pkt->auth, authentic, sizeof(authentic));
     memcpy(&pkt->avp, avp, sizeof(avp));
     pkt->length = htons(sizeof(rad_pkt_t));
     for (;;)
     {
-        printf("\n\r=====Listening to Client Messages====\n\r");
+        LOG("\n\r=====Listening to Client Messages====\n\r");
         len = sizeof(cliaddr);
         data_len = recvfrom(sockfd,mesg,MSG_SIZE,0, (struct sockaddr *)&cliaddr,&len);
-        printf("\n\rdata_len = %llu\n\r", data_len);
+        LOG("\n\r=====Received Msg from Client====");
+        TRACE("\n\rdata_len = %llu\n\r", data_len);
 
         msg_start = 0;
         msg_no = 0;
         while(msg_start < data_len)
         {
+            if(mesg[msg_start] == RAD_REQUEST)
+                LOG("\n\rRADIUS Request from Client (Code = %d)", mesg[msg_start]);
             recvd_pkt_id = mesg[msg_start +1];
             pkt->id = recvd_pkt_id;
-            printf("\n\rmsg_start = %llu\n\r", msg_start);
+            TRACE("\n\rmsg_start = %llu\n\r", msg_start);
             packet_len = (mesg[msg_start + 2] * 256) + mesg[msg_start + 3];
-            printf("\n\rpacket_len = %d\n\r", packet_len);
+            TRACE("\n\rpacket_len = %d\n\r", packet_len);
             msg_start += packet_len;
             sendto(sockfd,reply_msg,sizeof(rad_pkt_t),0,(struct sockaddr *)&cliaddr,sizeof(cliaddr));
             msg_no++;
-            printf("\n\r!!!Replied back to the Client %llu!!!\n\r", msg_no);
+            LOG("\n\rReplied back to the Client with RADIUS ACCEPT (Code = %d)", RAD_REQUEST);
+            LOG("\n\rNo of Clients serviced %llu\n\r", msg_no);
+            usleep(2000);
         }
         memset(mesg, 0, sizeof(mesg));
     }
 }
-
-
-
-
-
