@@ -14,6 +14,7 @@
 #define TRACE_ENABLE 0
 #define TRACE(args...) if(TRACE_ENABLE) printf(args) 
 
+/* RADIUS Packet Structure */
 typedef struct _radius_pkt_t
 {
     uint8_t code;
@@ -38,7 +39,8 @@ int main(int argc, char**argv)
     long long data_len, msg_start;
     uint16_t packet_len = 0;
     long long msg_no = 0;
-
+    
+    /* Create a UDP Socket */
     sockfd=socket(AF_INET,SOCK_DGRAM,0);
 
     memset(&servaddr,0,sizeof(servaddr));
@@ -47,7 +49,7 @@ int main(int argc, char**argv)
     servaddr.sin_port=htons(1812);
     bind(sockfd,(struct sockaddr *)&servaddr,sizeof(servaddr));
 
-    //keep the reply msg ready
+    /* Construct the Reply Msg */
     rad_pkt_t *pkt;
     pkt = (rad_pkt_t *)reply_msg;
     pkt->code = RAD_ACCEPT;
@@ -62,7 +64,6 @@ int main(int argc, char**argv)
         data_len = recvfrom(sockfd,mesg,MSG_SIZE,0, (struct sockaddr *)&cliaddr,&len);
         LOG("\n\r=====Received Msg from Client====");
         TRACE("\n\rdata_len = %llu\n\r", data_len);
-
         msg_start = 0;
         msg_no = 0;
         while(msg_start < data_len)
