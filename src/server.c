@@ -14,6 +14,7 @@
 #define TRACE_ENABLE 0
 #define TRACE(args...) if(TRACE_ENABLE) printf(args) 
 
+/* RADIUS Packet Structure */
 typedef struct _radius_pkt_t
 {
     uint8_t code;
