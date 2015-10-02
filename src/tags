@@ -1,0 +1,307 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+DEAD_TIME	./include/radlib_private.h	49;"	d
+ERRSIZE	./include/radlib_private.h	52;"	d
+LEN_AUTH	./include/radlib_private.h	63;"	d
+MAXCONFLINE	./include/radlib_private.h	53;"	d
+MAXSERVERS	./include/radlib_private.h	54;"	d
+MAXTRIES	./include/radlib_private.h	44;"	d
+MAX_FIELDS	./radlib.c	42;"	d	file:
+MD5_DIGEST_LENGTH	./radlib.c	38;"	d	file:
+MPPE_KEY_LEN	./radlib.c	45;"	d	file:
+MSGSIZE	./include/radlib_private.h	55;"	d
+PASSSIZE	./include/radlib_private.h	56;"	d
+PATH_RADIUS_CONF	./include/radlib_private.h	45;"	d
+POS_ATTRS	./include/radlib_private.h	64;"	d
+POS_AUTH	./include/radlib_private.h	62;"	d
+POS_CODE	./include/radlib_private.h	59;"	d
+POS_IDENT	./include/radlib_private.h	60;"	d
+POS_LENGTH	./include/radlib_private.h	61;"	d
+RADACCT_PORT	./include/radlib_private.h	47;"	d
+RADIUS_ACCT	./include/radlib_private.h	40;"	d
+RADIUS_AUTH	./include/radlib_private.h	39;"	d
+RADIUS_PORT	./include/radlib_private.h	46;"	d
+RADIUS_SERVER	./include/radlib_private.h	41;"	d
+RADLIB_PRIVATE_H	./include/radlib_private.h	30;"	d
+RAD_ACCESS_ACCEPT	./include/radlib.h	40;"	d
+RAD_ACCESS_CHALLENGE	./include/radlib.h	44;"	d
+RAD_ACCESS_REJECT	./include/radlib.h	41;"	d
+RAD_ACCESS_REQUEST	./include/radlib.h	39;"	d
+RAD_ACCOUNTING_OFF	./include/radlib.h	154;"	d
+RAD_ACCOUNTING_ON	./include/radlib.h	153;"	d
+RAD_ACCOUNTING_REQUEST	./include/radlib.h	42;"	d
+RAD_ACCOUNTING_RESPONSE	./include/radlib.h	43;"	d
+RAD_ACCT_AUTHENTIC	./include/radlib.h	159;"	d
+RAD_ACCT_DELAY_TIME	./include/radlib.h	155;"	d
+RAD_ACCT_INPUT_GIGAWORDS	./include/radlib.h	110;"	d
+RAD_ACCT_INPUT_OCTETS	./include/radlib.h	156;"	d
+RAD_ACCT_INPUT_PACKETS	./include/radlib.h	164;"	d
+RAD_ACCT_INTERIM_INTERVAL	./include/radlib.h	140;"	d
+RAD_ACCT_LINK_COUNT	./include/radlib.h	186;"	d
+RAD_ACCT_MULTI_SESSION_ID	./include/radlib.h	185;"	d
+RAD_ACCT_OUTPUT_GIGAWORDS	./include/radlib.h	111;"	d
+RAD_ACCT_OUTPUT_OCTETS	./include/radlib.h	157;"	d
+RAD_ACCT_OUTPUT_PACKETS	./include/radlib.h	165;"	d
+RAD_ACCT_SESSION_ID	./include/radlib.h	158;"	d
+RAD_ACCT_SESSION_TIME	./include/radlib.h	163;"	d
+RAD_ACCT_STATUS_TYPE	./include/radlib.h	149;"	d
+RAD_ACCT_TERMINATE_CAUSE	./include/radlib.h	166;"	d
+RAD_ADMINISTRATIVE	./include/radlib.h	64;"	d
+RAD_ADSL_CAP	./include/radlib.h	127;"	d
+RAD_ADSL_DMT	./include/radlib.h	128;"	d
+RAD_ARAP	./include/radlib.h	71;"	d
+RAD_ASYNC	./include/radlib.h	115;"	d
+RAD_AUTHENTICATE_ONLY	./include/radlib.h	66;"	d
+RAD_AUTH_LOCAL	./include/radlib.h	161;"	d
+RAD_AUTH_RADIUS	./include/radlib.h	160;"	d
+RAD_AUTH_REMOTE	./include/radlib.h	162;"	d
+RAD_CABLE	./include/radlib.h	132;"	d
+RAD_CALLBACK_FRAMED	./include/radlib.h	62;"	d
+RAD_CALLBACK_ID	./include/radlib.h	89;"	d
+RAD_CALLBACK_LOGIN	./include/radlib.h	61;"	d
+RAD_CALLBACK_NAS_PROMPT	./include/radlib.h	67;"	d
+RAD_CALLBACK_NUMBER	./include/radlib.h	88;"	d
+RAD_CALLED_STATION_ID	./include/radlib.h	99;"	d
+RAD_CALLING_STATION_ID	./include/radlib.h	100;"	d
+RAD_CHAP_CHALLENGE	./include/radlib.h	113;"	d
+RAD_CHAP_PASSWORD	./include/radlib.h	55;"	d
+RAD_CLASS	./include/radlib.h	94;"	d
+RAD_COA_ACK	./include/radlib.h	49;"	d
+RAD_COA_NAK	./include/radlib.h	50;"	d
+RAD_COA_REQUEST	./include/radlib.h	48;"	d
+RAD_COMP_IPXHDR	./include/radlib.h	82;"	d
+RAD_COMP_NONE	./include/radlib.h	80;"	d
+RAD_COMP_VJ	./include/radlib.h	81;"	d
+RAD_CONNECT_INFO	./include/radlib.h	137;"	d
+RAD_DISCONNECT_ACK	./include/radlib.h	46;"	d
+RAD_DISCONNECT_NAK	./include/radlib.h	47;"	d
+RAD_DISCONNECT_REQUEST	./include/radlib.h	45;"	d
+RAD_EAP_MESSAGE	./include/radlib.h	138;"	d
+RAD_ERROR_CAUSE	./include/radlib.h	188;"	d
+RAD_ETHERNET	./include/radlib.h	130;"	d
+RAD_FILTER_ID	./include/radlib.h	77;"	d
+RAD_FRAMED	./include/radlib.h	60;"	d
+RAD_FRAMED_APPLETALK_LINK	./include/radlib.h	106;"	d
+RAD_FRAMED_APPLETALK_NETWORK	./include/radlib.h	107;"	d
+RAD_FRAMED_APPLETALK_ZONE	./include/radlib.h	108;"	d
+RAD_FRAMED_COMPRESSION	./include/radlib.h	79;"	d
+RAD_FRAMED_INTERFACE_ID	./include/radlib.h	142;"	d
+RAD_FRAMED_IPV6_POOL	./include/radlib.h	146;"	d
+RAD_FRAMED_IPV6_PREFIX	./include/radlib.h	143;"	d
+RAD_FRAMED_IPV6_ROUTE	./include/radlib.h	145;"	d
+RAD_FRAMED_IPX_NETWORK	./include/radlib.h	92;"	d
+RAD_FRAMED_IP_ADDRESS	./include/radlib.h	74;"	d
+RAD_FRAMED_IP_NETMASK	./include/radlib.h	75;"	d
+RAD_FRAMED_MTU	./include/radlib.h	78;"	d
+RAD_FRAMED_PROTOCOL	./include/radlib.h	68;"	d
+RAD_FRAMED_ROUTE	./include/radlib.h	91;"	d
+RAD_FRAMED_ROUTING	./include/radlib.h	76;"	d
+RAD_GANDALF	./include/radlib.h	72;"	d
+RAD_G_3_FAX	./include/radlib.h	125;"	d
+RAD_HDLC_CLEAR_CHANNEL	./include/radlib.h	122;"	d
+RAD_IDLE_TIMEOUT	./include/radlib.h	97;"	d
+RAD_IDSL	./include/radlib.h	129;"	d
+RAD_ISDN_ASYNC_V110	./include/radlib.h	119;"	d
+RAD_ISDN_ASYNC_V120	./include/radlib.h	118;"	d
+RAD_ISDN_SYNC	./include/radlib.h	117;"	d
+RAD_LOGIN	./include/radlib.h	59;"	d
+RAD_LOGIN_IPV6_HOST	./include/radlib.h	144;"	d
+RAD_LOGIN_IP_HOST	./include/radlib.h	83;"	d
+RAD_LOGIN_LAT_GROUP	./include/radlib.h	105;"	d
+RAD_LOGIN_LAT_NODE	./include/radlib.h	104;"	d
+RAD_LOGIN_LAT_PORT	./include/radlib.h	136;"	d
+RAD_LOGIN_LAT_SERVICE	./include/radlib.h	103;"	d
+RAD_LOGIN_SERVICE	./include/radlib.h	84;"	d
+RAD_LOGIN_TCP_PORT	./include/radlib.h	85;"	d
+RAD_MAX_ATTR_LEN	./include/radlib.h	36;"	d
+RAD_MESSAGE_AUTHENTIC	./include/radlib.h	139;"	d
+RAD_MICROSOFT_MS_ACCT_AUTH_TYPE	./include/radlib_vs.h	58;"	d
+RAD_MICROSOFT_MS_ACCT_EAP_TYPE	./include/radlib_vs.h	59;"	d
+RAD_MICROSOFT_MS_ARAP_CHALLENGE	./include/radlib_vs.h	67;"	d
+RAD_MICROSOFT_MS_ARAP_PASSWORD_CHANGE_REASON	./include/radlib_vs.h	56;"	d
+RAD_MICROSOFT_MS_BAP_USAGE	./include/radlib_vs.h	48;"	d
+RAD_MICROSOFT_MS_CHAP2_PW	./include/radlib_vs.h	62;"	d
+RAD_MICROSOFT_MS_CHAP2_RESPONSE	./include/radlib_vs.h	60;"	d
+RAD_MICROSOFT_MS_CHAP2_SUCCESS	./include/radlib_vs.h	61;"	d
+RAD_MICROSOFT_MS_CHAP_CHALLENGE	./include/radlib_vs.h	46;"	d
+RAD_MICROSOFT_MS_CHAP_DOMAIN	./include/radlib_vs.h	45;"	d
+RAD_MICROSOFT_MS_CHAP_ERROR	./include/radlib_vs.h	37;"	d
+RAD_MICROSOFT_MS_CHAP_LM_ENC_PW	./include/radlib_vs.h	40;"	d
+RAD_MICROSOFT_MS_CHAP_MPPE_KEYS	./include/radlib_vs.h	47;"	d
+RAD_MICROSOFT_MS_CHAP_NT_ENC_PW	./include/radlib_vs.h	41;"	d
+RAD_MICROSOFT_MS_CHAP_PW_1	./include/radlib_vs.h	38;"	d
+RAD_MICROSOFT_MS_CHAP_PW_2	./include/radlib_vs.h	39;"	d
+RAD_MICROSOFT_MS_CHAP_RESPONSE	./include/radlib_vs.h	36;"	d
+RAD_MICROSOFT_MS_FILTER	./include/radlib_vs.h	57;"	d
+RAD_MICROSOFT_MS_LINK_DROP_TIME_LIMIT	./include/radlib_vs.h	50;"	d
+RAD_MICROSOFT_MS_LINK_UTILIZATION_THRESHOLD	./include/radlib_vs.h	49;"	d
+RAD_MICROSOFT_MS_MPPE_ENCRYPTION_POLICY	./include/radlib_vs.h	42;"	d
+RAD_MICROSOFT_MS_MPPE_ENCRYPTION_TYPES	./include/radlib_vs.h	43;"	d
+RAD_MICROSOFT_MS_MPPE_RECV_KEY	./include/radlib_vs.h	52;"	d
+RAD_MICROSOFT_MS_MPPE_SEND_KEY	./include/radlib_vs.h	51;"	d
+RAD_MICROSOFT_MS_NEW_ARAP_PASSWORD	./include/radlib_vs.h	55;"	d
+RAD_MICROSOFT_MS_OLD_ARAP_PASSWORD	./include/radlib_vs.h	54;"	d
+RAD_MICROSOFT_MS_PRIMARY_DNS_SERVER	./include/radlib_vs.h	63;"	d
+RAD_MICROSOFT_MS_PRIMARY_NBNS_SERVER	./include/radlib_vs.h	65;"	d
+RAD_MICROSOFT_MS_RAS_VENDOR	./include/radlib_vs.h	44;"	d
+RAD_MICROSOFT_MS_RAS_VERSION	./include/radlib_vs.h	53;"	d
+RAD_MICROSOFT_MS_SECONDARY_DNS_SERVER	./include/radlib_vs.h	64;"	d
+RAD_MICROSOFT_MS_SECONDARY_NBNS_SERVER	./include/radlib_vs.h	66;"	d
+RAD_NAS_IDENTIFIER	./include/radlib.h	101;"	d
+RAD_NAS_IPV6_ADDRESS	./include/radlib.h	141;"	d
+RAD_NAS_IP_ADDRESS	./include/radlib.h	56;"	d
+RAD_NAS_PORT	./include/radlib.h	57;"	d
+RAD_NAS_PORT_TYPE	./include/radlib.h	114;"	d
+RAD_NAS_PROMPT	./include/radlib.h	65;"	d
+RAD_OUTBOUND	./include/radlib.h	63;"	d
+RAD_PIAFS	./include/radlib.h	121;"	d
+RAD_PORT_LIMIT	./include/radlib.h	135;"	d
+RAD_PPP	./include/radlib.h	69;"	d
+RAD_PROXY_STATE	./include/radlib.h	102;"	d
+RAD_REPLY_MESSAGE	./include/radlib.h	87;"	d
+RAD_SDSL	./include/radlib.h	126;"	d
+RAD_SERVICE_TYPE	./include/radlib.h	58;"	d
+RAD_SESSION_TIMEOUT	./include/radlib.h	96;"	d
+RAD_SLIP	./include/radlib.h	70;"	d
+RAD_START	./include/radlib.h	150;"	d
+RAD_STATE	./include/radlib.h	93;"	d
+RAD_STOP	./include/radlib.h	151;"	d
+RAD_SYNC	./include/radlib.h	116;"	d
+RAD_TERMINATION_ACTION	./include/radlib.h	98;"	d
+RAD_TERM_ADMIN_REBOOT	./include/radlib.h	173;"	d
+RAD_TERM_ADMIN_RESET	./include/radlib.h	172;"	d
+RAD_TERM_CALLBACK	./include/radlib.h	182;"	d
+RAD_TERM_HOST_REQUEST	./include/radlib.h	184;"	d
+RAD_TERM_IDLE_TIMEOUT	./include/radlib.h	170;"	d
+RAD_TERM_LOST_CARRIER	./include/radlib.h	168;"	d
+RAD_TERM_LOST_SERVICE	./include/radlib.h	169;"	d
+RAD_TERM_NAS_ERROR	./include/radlib.h	175;"	d
+RAD_TERM_NAS_REBOOT	./include/radlib.h	177;"	d
+RAD_TERM_NAS_REQUEST	./include/radlib.h	176;"	d
+RAD_TERM_PORT_ERROR	./include/radlib.h	174;"	d
+RAD_TERM_PORT_PREEMPTED	./include/radlib.h	179;"	d
+RAD_TERM_PORT_SUSPENDED	./include/radlib.h	180;"	d
+RAD_TERM_PORT_UNNEEDED	./include/radlib.h	178;"	d
+RAD_TERM_SERVICE_UNAVAILABLE	./include/radlib.h	181;"	d
+RAD_TERM_SESSION_TIMEOUT	./include/radlib.h	171;"	d
+RAD_TERM_USER_ERROR	./include/radlib.h	183;"	d
+RAD_TERM_USER_REQUEST	./include/radlib.h	167;"	d
+RAD_UPDATE	./include/radlib.h	152;"	d
+RAD_USER_NAME	./include/radlib.h	53;"	d
+RAD_USER_PASSWORD	./include/radlib.h	54;"	d
+RAD_VENDOR_MICROSOFT	./include/radlib_vs.h	35;"	d
+RAD_VENDOR_SPECIFIC	./include/radlib.h	95;"	d
+RAD_VIRTUAL	./include/radlib.h	120;"	d
+RAD_WIRELESS_IEEE_802_11	./include/radlib.h	134;"	d
+RAD_WIRELESS_OTHER	./include/radlib.h	133;"	d
+RAD_XDSL	./include/radlib.h	131;"	d
+RAD_XYLOGICS	./include/radlib.h	73;"	d
+RAD_X_25	./include/radlib.h	123;"	d
+RAD_X_75	./include/radlib.h	124;"	d
+SALT_LEN	./include/radlib_vs.h	69;"	d
+TIMEOUT	./include/radlib_private.h	48;"	d
+_RADLIB_H_	./include/radlib.h	30;"	d
+_RADLIB_VS_H_	./include/radlib_vs.h	30;"	d
+__printflike	./radlib.c	60;"	d	file:
+_radius_pkt_t	./server.c	/^typedef struct _radius_pkt_t$/;"	s	file:
+addr	./include/radlib_private.h	/^	struct sockaddr_in addr;	\/* Address of server *\/$/;"	m	struct:rad_server	typeref:struct:rad_server::sockaddr_in
+attrib_data	./include/radlib_private.h	/^	u_char attrib_data[1];$/;"	m	struct:vendor_attribute
+attrib_len	./include/radlib_private.h	/^	u_char attrib_len;$/;"	m	struct:vendor_attribute
+attrib_type	./include/radlib_private.h	/^	u_char attrib_type;$/;"	m	struct:vendor_attribute
+auth	./server.c	/^    char auth[16];$/;"	m	struct:_radius_pkt_t	file:
+authentic_pos	./include/radlib_private.h	/^	int		 authentic_pos;	\/* Position of message authenticator *\/$/;"	m	struct:rad_handle
+avp	./server.c	/^    char avp[14];$/;"	m	struct:_radius_pkt_t	file:
+bindto	./include/radlib_private.h	/^	in_addr_t	 bindto;	\/* Bind to address *\/$/;"	m	struct:rad_server
+bindto	./include/radlib_private.h	/^	in_addr_t	 bindto;	\/* Current bind address *\/$/;"	m	struct:rad_handle
+chap_pass	./include/radlib_private.h	/^	char		 chap_pass;	\/* Have we got a CHAP_PASSWORD ? *\/$/;"	m	struct:rad_handle
+clear_password	./radlib.c	/^clear_password(struct rad_handle *h)$/;"	f	file:
+code	./server.c	/^    uint8_t code;$/;"	m	struct:_radius_pkt_t	file:
+dead_time	./include/radlib_private.h	/^	time_t		 dead_time;	\/* Don't try this server for the time period if it is dead *\/$/;"	m	struct:rad_server
+eap_msg	./include/radlib_private.h	/^	char		 eap_msg;	\/* Are we an EAP Proxy? *\/$/;"	m	struct:rad_handle
+errmsg	./include/radlib_private.h	/^	char		 errmsg[ERRSIZE];	\/* Most recent error message *\/$/;"	m	struct:rad_handle
+fd	./include/radlib_private.h	/^	int		 fd;		\/* Socket file descriptor *\/$/;"	m	struct:rad_handle
+generr	./radlib.c	/^generr(struct rad_handle *h, const char *format, ...)$/;"	f	file:
+id	./server.c	/^    uint8_t id;$/;"	m	struct:_radius_pkt_t	file:
+ident	./include/radlib_private.h	/^	int		 ident;		\/* Current identifier value *\/$/;"	m	struct:rad_handle
+in	./include/radlib_private.h	/^	unsigned char	 in[MSGSIZE];	\/* Response received *\/$/;"	m	struct:rad_handle
+in_len	./include/radlib_private.h	/^	int		 in_len;	\/* Length of response *\/$/;"	m	struct:rad_handle
+in_pos	./include/radlib_private.h	/^	int		 in_pos;	\/* Current position scanning attrs *\/$/;"	m	struct:rad_handle
+insert_message_authenticator	./radlib.c	/^insert_message_authenticator(struct rad_handle *h, int resp)$/;"	f	file:
+insert_request_authenticator	./radlib.c	/^insert_request_authenticator(struct rad_handle *h, int resp)$/;"	f	file:
+insert_scrambled_password	./radlib.c	/^insert_scrambled_password(struct rad_handle *h, int srv)$/;"	f	file:
+is_dead	./include/radlib_private.h	/^	int		 is_dead;	\/* The server did not answer last time *\/$/;"	m	struct:rad_server
+is_valid_request	./radlib.c	/^is_valid_request(struct rad_handle *h)$/;"	f	file:
+is_valid_response	./radlib.c	/^is_valid_response(struct rad_handle *h, int srv,$/;"	f	file:
+length	./server.c	/^    uint16_t length;$/;"	m	struct:_radius_pkt_t	file:
+main	./radius_client.c	/^int main() $/;"	f
+main	./server.c	/^int main(int argc, char**argv)$/;"	f
+max_tries	./include/radlib_private.h	/^	int		 max_tries;	\/* Number of tries before giving up *\/$/;"	m	struct:rad_server
+my_rad_add_request	./radlib.c	/^void my_rad_add_request(unsigned char *msg, long int *len, struct rad_handle *h)$/;"	f
+my_rad_add_send_request	./radlib.c	/^int my_rad_add_send_request(struct rad_handle *h, unsigned char *msg, long int len, $/;"	f
+my_rad_continue_send_request	./radlib.c	/^my_rad_continue_send_request(struct rad_handle *h, int selected, int *fd,$/;"	f
+my_rad_init	./radlib.c	/^my_rad_init(void)$/;"	f
+my_rad_send_request	./radlib.c	/^int my_rad_send_request(struct rad_handle *h, unsigned char *msg, long int len, $/;"	f
+next_probe	./include/radlib_private.h	/^	time_t		 next_probe;	\/* Time of a next probe after failure *\/$/;"	m	struct:rad_server
+num_servers	./include/radlib_private.h	/^	int		 num_servers;	\/* Number of valid server entries *\/$/;"	m	struct:rad_handle
+num_tries	./include/radlib_private.h	/^	int		 num_tries;	\/* Number of tries so far *\/$/;"	m	struct:rad_server
+out	./include/radlib_private.h	/^	unsigned char	 out[MSGSIZE];	\/* Request to send *\/$/;"	m	struct:rad_handle
+out_created	./include/radlib_private.h	/^	char		 out_created;	\/* rad_create_request() called? *\/$/;"	m	struct:rad_handle
+out_len	./include/radlib_private.h	/^	int		 out_len;	\/* Length of request *\/$/;"	m	struct:rad_handle
+pass	./include/radlib_private.h	/^	char		 pass[PASSSIZE];	\/* Cleartext password *\/$/;"	m	struct:rad_handle
+pass_len	./include/radlib_private.h	/^	int		 pass_len;	\/* Length of cleartext password *\/$/;"	m	struct:rad_handle
+pass_pos	./include/radlib_private.h	/^	int		 pass_pos;	\/* Position of scrambled password *\/$/;"	m	struct:rad_handle
+put_password_attr	./radlib.c	/^put_password_attr(struct rad_handle *h, int type, const void *value, size_t len)$/;"	f	file:
+put_raw_attr	./radlib.c	/^put_raw_attr(struct rad_handle *h, int type, const void *value, size_t len)$/;"	f	file:
+rad_acct_open	./radlib.c	/^rad_acct_open(void)$/;"	f
+rad_add_server	./radlib.c	/^rad_add_server(struct rad_handle *h, const char *host, int port,$/;"	f
+rad_add_server_ex	./radlib.c	/^rad_add_server_ex(struct rad_handle *h, const char *host, int port,$/;"	f
+rad_auth_open	./radlib.c	/^rad_auth_open(void)$/;"	f
+rad_bind_to	./radlib.c	/^rad_bind_to(struct rad_handle *h, in_addr_t addr)$/;"	f
+rad_close	./radlib.c	/^rad_close(struct rad_handle *h)$/;"	f
+rad_config	./radlib.c	/^rad_config(struct rad_handle *h, const char *path)$/;"	f
+rad_continue_send_request	./radlib.c	/^rad_continue_send_request(struct rad_handle *h, int selected, int *fd,$/;"	f
+rad_create_request	./radlib.c	/^rad_create_request(struct rad_handle *h, int code)$/;"	f
+rad_create_response	./radlib.c	/^rad_create_response(struct rad_handle *h, int code)$/;"	f
+rad_cvt_addr	./radlib.c	/^rad_cvt_addr(const void *data)$/;"	f
+rad_cvt_addr6	./radlib.c	/^rad_cvt_addr6(const void *data)$/;"	f
+rad_cvt_int	./radlib.c	/^rad_cvt_int(const void *data)$/;"	f
+rad_cvt_string	./radlib.c	/^rad_cvt_string(const void *data, size_t len)$/;"	f
+rad_demangle	./radlib.c	/^rad_demangle(struct rad_handle *h, const void *mangled, size_t mlen)$/;"	f
+rad_demangle_mppe_key	./radlib.c	/^rad_demangle_mppe_key(struct rad_handle *h, const void *mangled,$/;"	f
+rad_get_attr	./radlib.c	/^rad_get_attr(struct rad_handle *h, const void **value, size_t *len)$/;"	f
+rad_get_vendor_attr	./radlib.c	/^rad_get_vendor_attr(u_int32_t *vendor, const void **data, size_t *len)$/;"	f
+rad_handle	./include/radlib_private.h	/^struct rad_handle {$/;"	s
+rad_init_send_request	./radlib.c	/^rad_init_send_request(struct rad_handle *h, int *fd, struct timeval *tv)$/;"	f
+rad_open	./radlib.c	/^rad_open(void)$/;"	f
+rad_pkt_t	./server.c	/^}rad_pkt_t;$/;"	t	typeref:struct:_radius_pkt_t	file:
+rad_put_addr	./radlib.c	/^rad_put_addr(struct rad_handle *h, int type, struct in_addr addr)$/;"	f
+rad_put_addr6	./radlib.c	/^rad_put_addr6(struct rad_handle *h, int type, struct in6_addr addr)$/;"	f
+rad_put_attr	./radlib.c	/^rad_put_attr(struct rad_handle *h, int type, const void *value, size_t len)$/;"	f
+rad_put_int	./radlib.c	/^rad_put_int(struct rad_handle *h, int type, u_int32_t value)$/;"	f
+rad_put_message_authentic	./radlib.c	/^rad_put_message_authentic(struct rad_handle *h)$/;"	f
+rad_put_string	./radlib.c	/^rad_put_string(struct rad_handle *h, int type, const char *str)$/;"	f
+rad_put_vendor_addr	./radlib.c	/^rad_put_vendor_addr(struct rad_handle *h, int vendor, int type,$/;"	f
+rad_put_vendor_addr6	./radlib.c	/^rad_put_vendor_addr6(struct rad_handle *h, int vendor, int type,$/;"	f
+rad_put_vendor_attr	./radlib.c	/^rad_put_vendor_attr(struct rad_handle *h, int vendor, int type,$/;"	f
+rad_put_vendor_int	./radlib.c	/^rad_put_vendor_int(struct rad_handle *h, int vendor, int type, u_int32_t i)$/;"	f
+rad_put_vendor_string	./radlib.c	/^rad_put_vendor_string(struct rad_handle *h, int vendor, int type,$/;"	f
+rad_receive_request	./radlib.c	/^rad_receive_request(struct rad_handle *h)$/;"	f
+rad_request_authenticator	./radlib.c	/^rad_request_authenticator(struct rad_handle *h, char *buf, size_t len)$/;"	f
+rad_send_request	./radlib.c	/^rad_send_request(struct rad_handle *h)$/;"	f
+rad_send_response	./radlib.c	/^rad_send_response(struct rad_handle *h)$/;"	f
+rad_server	./include/radlib_private.h	/^struct rad_server {$/;"	s
+rad_server_open	./radlib.c	/^rad_server_open(int fd)$/;"	f
+rad_server_secret	./radlib.c	/^rad_server_secret(struct rad_handle *h)$/;"	f
+rad_strerror	./radlib.c	/^rad_strerror(struct rad_handle *h)$/;"	f
+secret	./include/radlib_private.h	/^	char		*secret;	\/* Shared secret *\/$/;"	m	struct:rad_server
+servers	./include/radlib_private.h	/^	struct rad_server servers[MAXSERVERS];	\/* Servers to contact *\/$/;"	m	struct:rad_handle	typeref:struct:rad_handle::rad_server
+split	./radlib.c	/^split(char *str, char *fields[], int maxfields, char *msg, size_t msglen)$/;"	f	file:
+srv	./include/radlib_private.h	/^	int		 srv;		\/* Server number we did last *\/$/;"	m	struct:rad_handle
+timeout	./include/radlib_private.h	/^	int		 timeout;	\/* Timeout in seconds *\/$/;"	m	struct:rad_server
+type	./include/radlib_private.h	/^	int		 type;		\/* Handle type *\/$/;"	m	struct:rad_handle
+vendor_attribute	./include/radlib_private.h	/^struct vendor_attribute {$/;"	s
+vendor_value	./include/radlib_private.h	/^	u_int32_t vendor_value;$/;"	m	struct:vendor_attribute
