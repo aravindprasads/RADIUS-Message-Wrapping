@@ -47,7 +47,7 @@ int main(int argc, char**argv)
     servaddr.sin_port=htons(1812);
     bind(sockfd,(struct sockaddr *)&servaddr,sizeof(servaddr));
 
-    //keep the reply msg ready
+    /* Construct the Reply Msg */
     rad_pkt_t *pkt;
     pkt = (rad_pkt_t *)reply_msg;
     pkt->code = RAD_ACCEPT;
