@@ -41,6 +41,9 @@
 
 #define	MAX_FIELDS	7
 
+#define TRCAE_LOG 1
+#define TRACE(args...) if(TRCAE_LOG) printf(args)
+
 /* We need the MPPE_KEY_LEN define - but we don't have netgraph/ng_mppc.h */
 #define MPPE_KEY_LEN	16
 
@@ -61,11 +64,11 @@
 #endif
 
 static void	 clear_password(struct rad_handle *);
-static void	 generr(struct rad_handle *, const char *, ...)
+void	 generr(struct rad_handle *, const char *, ...)
 		    __printflike(2, 3);
-static void	 insert_scrambled_password(struct rad_handle *, int);
-static void	 insert_request_authenticator(struct rad_handle *, int);
-static void	 insert_message_authenticator(struct rad_handle *, int);
+void	 insert_scrambled_password(struct rad_handle *, int);
+void	 insert_request_authenticator(struct rad_handle *, int);
+void	 insert_message_authenticator(struct rad_handle *, int);
 static int	 is_valid_response(struct rad_handle *, int,
 		    const struct sockaddr_in *);
 static int	 put_password_attr(struct rad_handle *, int,
@@ -84,7 +87,7 @@ clear_password(struct rad_handle *h)
 	h->pass_pos = 0;
 }
 
-static void
+void
 generr(struct rad_handle *h, const char *format, ...)
 {
 	va_list		 ap;
@@ -94,7 +97,7 @@ generr(struct rad_handle *h, const char *format, ...)
 	va_end(ap);
 }
 
-static void
+void
 insert_scrambled_password(struct rad_handle *h, int srv)
 {
 	MD5_CTX ctx;
@@ -128,7 +131,7 @@ insert_scrambled_password(struct rad_handle *h, int srv)
 	}
 }
 
-static void
+void
 insert_request_authenticator(struct rad_handle *h, int resp)
 {
 	MD5_CTX ctx;
@@ -148,7 +151,7 @@ insert_request_authenticator(struct rad_handle *h, int resp)
 	MD5_Final(&h->out[POS_AUTH], &ctx);
 }
 
-static void
+void
 insert_message_authenticator(struct rad_handle *h, int resp)
 {
 #ifdef WITH_SSL
@@ -653,39 +656,20 @@ rad_continue_send_request(struct rad_handle *h, int selected, int *fd,
 	int n, cur_srv;
 	time_t now;
 	struct sockaddr_in sin;
-#if 0
-	if (h->type == RADIUS_SERVER) {
-		generr(h, "denied function call");
-		return (-1);
-	}
-#endif
 	if (selected) {
-        printf("\n\rselected is set\n\r");
+        TRACE("\n\rselected is set\n\r");
 		struct sockaddr_in from;
 		socklen_t fromlen;
 
 		fromlen = sizeof from;
         h->in_len=recvfrom(h->fd,h->in,MSGSIZE,0,NULL, NULL);
 
-        printf("\n\rrecvfrom in_len %d\n\r", h->in_len);
-//aravind
-//		h->in_len = recvfrom(h->fd, h->in,
-//		    MSGSIZE, MSG_WAITALL, (struct sockaddr *)&from, &fromlen);
+        TRACE("\n\rrecvfrom in_len %d\n\r", h->in_len);
 		if (h->in_len == -1) {
 			generr(h, "recvfrom: %s", strerror(errno));
 			return -1;
 		}
-//aravind
-#if 0
-		if (is_valid_response(h, h->srv, &from)) {
-            printf("\n\rresponse is valid\n\r");
-			h->in_len = h->in[POS_LENGTH] << 8 |
-			    h->in[POS_LENGTH+1];
-			h->in_pos = POS_ATTRS;
-			return h->in[POS_CODE];
-		}
-#endif
-            printf("\n\r!!!!received code %d\n\r", h->in[POS_CODE]);
+            TRACE("\n\r!!!!received code %d\n\r", h->in[POS_CODE]);
 			return h->in[POS_CODE];
 	}
 
@@ -727,13 +711,6 @@ rad_continue_send_request(struct rad_handle *h, int selected, int *fd,
 	if (h->bindto != h->servers[h->srv].bindto) {
 	    	h->bindto = h->servers[h->srv].bindto;
 		close(h->fd);
-//aravind
-#if 0
-		if ((h->fd = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1) {
-			generr(h, "Cannot create socket: %s", strerror(errno));
-			return -1;
-		}
-#endif
         if ((h->fd = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
             generr(h, "Cannot create socket: %s", strerror(errno));
             return -1;
@@ -764,11 +741,11 @@ rad_continue_send_request(struct rad_handle *h, int selected, int *fd,
 		insert_request_authenticator(h, 0);
 	}
 
-    printf("\n\rconnect called\n\r");
+    TRACE("\n\rconnect called\n\r");
     if(connect(h->fd, (const struct sockaddr *)&h->servers[h->srv].addr,
             sizeof h->servers[h->srv].addr) != 0)
     {
-        printf("\n\rconnect failed\n\r");
+        TRACE("\n\rconnect failed\n\r");
         return -1;
     }
 
@@ -776,7 +753,7 @@ rad_continue_send_request(struct rad_handle *h, int selected, int *fd,
 	n = sendto(h->fd, h->out, h->out_len, 0,
 	    (const struct sockaddr *)&h->servers[h->srv].addr,
 	    sizeof h->servers[h->srv].addr);
-    printf("\n\rlen = %d out_len %d\n\r", n, h->out_len);
+    TRACE("\n\rlen = %d out_len %d\n\r", n, h->out_len);
 	if (n != h->out_len)
 		tv->tv_sec = 1; /* Do not wait full timeout if send failed. */
 	else
@@ -802,11 +779,6 @@ rad_receive_request(struct rad_handle *h)
 	h->srv = -1;
 	fromlen = sizeof(from);
     h->in_len=recvfrom(h->fd,h->in,MSGSIZE,0,NULL,NULL);
-//aravind
-#if 0
-	h->in_len = recvfrom(h->fd, h->in,
-	    MSGSIZE, MSG_WAITALL, (struct sockaddr *)&from, &fromlen);
-#endif
 	if (h->in_len == -1) {
 		generr(h, "recvfrom: %s", strerror(errno));
 		return (-1);
@@ -993,13 +965,6 @@ rad_init_send_request(struct rad_handle *h, int *fd, struct timeval *tv)
 	}
 	/* Make sure we have a socket to use */
 	if (h->fd == -1) {
-//aravind
-#if 0
-		if ((h->fd = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1) {
-			generr(h, "Cannot create socket: %s", strerror(errno));
-			return -1;
-		}
-#endif
         if ((h->fd = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
             generr(h, "Cannot create socket: %s", strerror(errno));
             return -1;
@@ -1262,8 +1227,7 @@ rad_send_request(struct rad_handle *h)
 
 		if (n == -1) {
 			generr(h, "select: %s", strerror(errno));
-//aravind;
-            printf("\n\rselect: %s\n\r", strerror(errno));
+            TRACE("\n\rselect: %s\n\r", strerror(errno));
 			return -1;
 		}
 
@@ -1271,10 +1235,9 @@ rad_send_request(struct rad_handle *h)
 			/* Compute a new timeout */
 			gettimeofday(&tv, NULL);
 			timersub(&timelimit, &tv, &tv);
-//aravind
 			if (tv.tv_sec > 0 || (tv.tv_sec == 0 && tv.tv_usec > 0))
             {
-                printf("\n\rcontinue the select\n\r");
+                TRACE("\n\rcontinue the select\n\r");
 				/* Continue the select */
 				continue;
             }
@@ -1600,601 +1563,4 @@ const char *
 rad_server_secret(struct rad_handle *h)
 {
 	return (h->servers[h->srv].secret);
-}
-
-/*aravind -- my functions below*/
-struct rad_handle *
-my_rad_init(void)
-{
-	int srv;
-	time_t now;
-	struct sockaddr_in sin;
-	int n, cur_srv;
-    int rc = 0, ret_value;
-    struct rad_handle *h = NULL;
-//aravind
-//    printf("\n\rentering %s\n\r", __FUNCTION__);
-    /** Get Handle from LIBRADIUS library */
-    if ((h = rad_auth_open ()) == NULL)
-    {
-        printf("Authentication init failure");
-        return NULL;
-    }
-    /** Read the configuration data from radius.conf file */
-    if ((ret_value = rad_config (h, NULL)) != 0)
-    {
-        printf("Authentication configuration "
-                "failure %d", ret_value);
-        return NULL;
-    }
-    /** Construct a new RADIUS Accounting Request */
-    if ((ret_value =
-                rad_create_request (h, RAD_ACCESS_REQUEST)) != 0)
-    {
-        printf("Message creation failure %d",
-                ret_value);
-        return NULL;
-    }
-
-    rad_put_string(h, RAD_USER_NAME, "admin");
-    rad_put_string(h, RAD_USER_PASSWORD, "admin");
-    rad_put_int(h, RAD_NAS_PORT, 4223);
-
-	/* Fill in the length field in the message */
-	h->out[POS_LENGTH] = h->out_len >> 8;
-	h->out[POS_LENGTH+1] = h->out_len;
-
-	h->srv = 0;
-	now = time(NULL);
-	for (srv = 0;  srv < h->num_servers;  srv++)
-		h->servers[srv].num_tries = 0;
-	/* Find a first good server. */
-	for (srv = 0;  srv < h->num_servers;  srv++) {
-		if (h->servers[srv].is_dead == 0)
-			break;
-		if (h->servers[srv].dead_time &&
-		    h->servers[srv].next_probe <= now) {
-		    	h->servers[srv].is_dead = 0;
-			break;
-		}
-		h->srv++;
-	}
-
-	/* If all servers was dead on the last probe, try from beginning */
-	if (h->srv == h->num_servers) {
-		for (srv = 0;  srv < h->num_servers;  srv++) {
-		    	h->servers[srv].is_dead = 0;
-			h->servers[srv].next_probe = 0;
-		}
-		h->srv = 0;
-	}
-
-	/*
-         * Scan round-robin to the next server that has some
-         * tries left.  There is guaranteed to be one, or we
-         * would have exited this loop by now.
-	 */
-	cur_srv = h->srv;
-	now = time(NULL);
-	if (h->servers[h->srv].num_tries >= h->servers[h->srv].max_tries) {
-		/* Set next probe time for this server */
-		if (h->servers[h->srv].dead_time) {
-			h->servers[h->srv].is_dead = 1;
-			h->servers[h->srv].next_probe = now +
-			    h->servers[h->srv].dead_time;
-		}
-		do {
-		    	h->srv++;
-			if (h->srv >= h->num_servers)
-				h->srv = 0;
-			if (h->servers[h->srv].is_dead == 0)
-			    	break;
-			if (h->servers[h->srv].dead_time &&
-			    h->servers[h->srv].next_probe <= now) {
-			    	h->servers[h->srv].is_dead = 0;
-				h->servers[h->srv].num_tries = 0;
-				break;
-			}
-		} while (h->srv != cur_srv);
-
-		if (h->srv == cur_srv) {
-			generr(h, "No valid RADIUS responses received");
-            printf("\n\rNo valid RADIUS responses received\n\r");
-			return NULL;
-		}
-	}
-
-	if (h->out[POS_CODE] == RAD_ACCESS_REQUEST) {
-		/* Insert the scrambled password into the request */
-		if (h->pass_pos != 0)
-			insert_scrambled_password(h, h->srv);
-	}
-	insert_message_authenticator(h, 0);
-
-	if (h->out[POS_CODE] != RAD_ACCESS_REQUEST) {
-		/* Insert the request authenticator into the request */
-		memset(&h->out[POS_AUTH], 0, LEN_AUTH);
-		insert_request_authenticator(h, 0);
-	}
-//aravind
-//    printf("\n\rExiting %s\n\r", __FUNCTION__);
-	return h;
-}
-
-void my_rad_add_request(unsigned char *msg, long long *len, struct rad_handle *h)
-{
-//aravind
-//    printf("\n\rEntering %s\n\r", __FUNCTION__);
-//    printf("\n\rin %s len %llu radlen %int\n\r", __FUNCTION__, *len, h->out_len);
-    memcpy(msg + *len, &(h->out), h->out_len);
-    *len = *len + h->out_len;
-}
-
-int my_rad_add_send_request(struct rad_handle *h, unsigned char *msg, long long len, 
-                            long long  *fd, struct timeval *tv, uint proto_tcp)
-{
-	int srv;
-	time_t now;
-	struct sockaddr_in sin;
-    int n, cur_srv, ret_value = 0;
-
-#if 0
-    /** Get Handle from LIBRADIUS library */
-    if ((h = rad_auth_open ()) == NULL)
-    {
-        printf("Authentication init failure");
-        return;
-    }
-    /** Read the configuration data from radius.conf file */
-    if ((ret_value = rad_config (h, NULL)) != 0)
-    {
-        printf("Authentication configuration "
-                "failure %d", ret_value);
-        h = NULL;
-        return;
-    }
-    /** Construct a new RADIUS Accounting Request */
-    if ((ret_value =
-                rad_create_request (rad_h, RAD_ACCESS_REQUEST)) != 0)
-    {
-        printf("Message creation failure %d",
-                ret_value);
-        rad_h = NULL;
-        return;
-    }
-#endif
-	/* Make sure we have a socket to use */
-	if (h->fd == -1) 
-    {
-        if(proto_tcp)
-        {
-            if ((h->fd = socket(AF_INET, SOCK_STREAM, 0)) == -1) 
-            {
-                generr(h, "Cannot create socket: %s", strerror(errno));
-                return -1;
-            }
-        }
-        else
-        {
-            if ((h->fd = socket(AF_INET, SOCK_DGRAM, 0)) == -1) 
-            {
-                generr(h, "Cannot create socket: %s", strerror(errno));
-                return -1;
-            }
-        }
-		memset(&sin, 0, sizeof sin);
-		sin.sin_family = AF_INET;
-		sin.sin_addr.s_addr = h->bindto;
-		sin.sin_port = htons(0);
-		if (bind(h->fd, (const struct sockaddr *)&sin,
-		    sizeof sin) == -1) {
-			generr(h, "bind: %s", strerror(errno));
-            printf("\n\r!!bind error %s!!!\n\r", strerror(errno));
-			close(h->fd);
-			h->fd = -1;
-			return -1;
-		}
-	}
-
-	h->srv = 0;
-	now = time(NULL);
-	for (srv = 0;  srv < h->num_servers;  srv++)
-		h->servers[srv].num_tries = 0;
-	/* Find a first good server. */
-	for (srv = 0;  srv < h->num_servers;  srv++) {
-		if (h->servers[srv].is_dead == 0)
-			break;
-		if (h->servers[srv].dead_time &&
-		    h->servers[srv].next_probe <= now) {
-		    	h->servers[srv].is_dead = 0;
-			break;
-		}
-		h->srv++;
-	}
-
-	/* If all servers was dead on the last probe, try from beginning */
-	if (h->srv == h->num_servers) {
-		for (srv = 0;  srv < h->num_servers;  srv++) {
-		    	h->servers[srv].is_dead = 0;
-			h->servers[srv].next_probe = 0;
-		}
-		h->srv = 0;
-	}
-
-	/*
-         * Scan round-robin to the next server that has some
-         * tries left.  There is guaranteed to be one, or we
-         * would have exited this loop by now.
-	 */
-	cur_srv = h->srv;
-	now = time(NULL);
-	if (h->servers[h->srv].num_tries >= h->servers[h->srv].max_tries) {
-		/* Set next probe time for this server */
-		if (h->servers[h->srv].dead_time) {
-			h->servers[h->srv].is_dead = 1;
-			h->servers[h->srv].next_probe = now +
-			    h->servers[h->srv].dead_time;
-		}
-		do {
-		    	h->srv++;
-			if (h->srv >= h->num_servers)
-				h->srv = 0;
-			if (h->servers[h->srv].is_dead == 0)
-			    	break;
-			if (h->servers[h->srv].dead_time &&
-			    h->servers[h->srv].next_probe <= now) {
-			    	h->servers[h->srv].is_dead = 0;
-				h->servers[h->srv].num_tries = 0;
-				break;
-			}
-		} while (h->srv != cur_srv);
-
-		if (h->srv == cur_srv) {
-			generr(h, "No valid RADIUS responses received");
-			return (-1);
-		}
-	}
-
-	/* Rebind */
-	if (h->bindto != h->servers[h->srv].bindto) {
-	    	h->bindto = h->servers[h->srv].bindto;
-		close(h->fd);
-        if(proto_tcp)
-        {
-            if ((h->fd = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
-                generr(h, "Cannot create socket: %s", strerror(errno));
-                printf("\n\rCannot create socket: %s", strerror(errno));
-                return -1;
-            }
-        }
-        else
-        {
-            if ((h->fd = socket(AF_INET, SOCK_DGRAM, 0)) == -1) {
-                generr(h, "Cannot create socket: %s", strerror(errno));
-                printf("\n\rCannot create socket: %s", strerror(errno));
-                return -1;
-            }
-        }
-		memset(&sin, 0, sizeof sin);
-		sin.sin_family = AF_INET;
-		sin.sin_addr.s_addr = h->bindto;
-		sin.sin_port = 0;
-		if (bind(h->fd, (const struct sockaddr *)&sin,
-		    sizeof sin) == -1) {
-			generr(h, "bind: %s", strerror(errno));
-			printf("\n\rbind: %s", strerror(errno));
-			close(h->fd);
-			h->fd = -1;
-			return (-1);
-		}
-	}
-
-    memcpy(&(h->out), msg, len);
-    h->out_len = len;
-
-    if(proto_tcp)
-    {
-        //aravind
-//        printf("\n\rconnect called\n\r");
-        if(connect(h->fd, (const struct sockaddr *)&h->servers[h->srv].addr,
-                    sizeof h->servers[h->srv].addr) != 0)
-        {
-            printf("\n\rconnect failed\n\r");
-            return -1;
-        }
-    }
-
-	/* Send the request */
-	n = sendto(h->fd, h->out, h->out_len, 0,
-	    (const struct sockaddr *)&h->servers[h->srv].addr,
-	    sizeof h->servers[h->srv].addr);
-//aravind
-//    printf("\n\rlen = %d out_len %d\n\r", n, h->out_len);
-	if (n != h->out_len)
-		tv->tv_sec = 1; /* Do not wait full timeout if send failed. */
-	else
-		tv->tv_sec = h->servers[h->srv].timeout;
-	h->servers[h->srv].num_tries++;
-	tv->tv_usec = 0;
-	*fd = h->fd;
-
-	return 0;
-}
-
-int
-my_rad_continue_send_request(struct rad_handle *h, long long selected, long long *fd,
-                             struct timeval *tv, uint proto_tcp, long long msg_count,
-                             long long *recv_msg_count)
-{
-	long long n, cur_srv;
-	time_t now;
-	struct sockaddr_in sin;
-    uint8_t header[4];
-    long long data_len, msg_start = 0;
-    uint16_t packet_len = 0;
-#if 0
-	if (h->type == RADIUS_SERVER) {
-		generr(h, "denied function call");
-		return (-1);
-	}
-#endif
-	if (selected) {
-//aravind
-//        printf("\n\rselected is set\n\r");
-		struct sockaddr_in from;
-		socklen_t fromlen;
-
-		fromlen = sizeof from;
-        if(proto_tcp)
-        {
-            //find the peek and get the length
-            data_len = recvfrom(h->fd, header, sizeof(header), MSG_PEEK,
-                    NULL, NULL);
-            printf("\n\r======RECEIVED THE MSG FROM SERVER======");
-            //aravind
-            //        printf("\n\rdata_len = %llu\n\r", data_len);
-            packet_len = (header[2] * 256) + header[3];
-            //aravind
-            //        printf("\n\rpacket_len = %llu\n\r", packet_len);
-
-
-            h->in_len=recvfrom(h->fd,h->in,packet_len,0,NULL, NULL);
-            //aravind
-            printf("\n\rrecvfrom in_len %d\n\r", h->in_len);
-            //aravind
-            //		h->in_len = recvfrom(h->fd, h->in,
-            //		    MSGSIZE, MSG_WAITALL, (struct sockaddr *)&from, &fromlen);
-            if (h->in_len == -1) {
-                generr(h, "recvfrom: %s", strerror(errno));
-                return -1;
-            }
-            //aravind
-#if 0
-            if (is_valid_response(h, h->srv, &from)) {
-                printf("\n\rresponse is valid\n\r");
-                h->in_len = h->in[POS_LENGTH] << 8 |
-                    h->in[POS_LENGTH+1];
-                h->in_pos = POS_ATTRS;
-                return h->in[POS_CODE];
-            }
-#endif
-            printf("\n\r!!!!received code %d Line %d from-h %d", 
-                    h->in[POS_CODE], __LINE__, h->in[0]);
-            (*recv_msg_count)++;
-            return h->in[POS_CODE];
-        }
-        else
-        {
-            printf("\n\r======RECEIVED THE UDP MSG FROM SERVER======");
-            memset(h->in, 0, MSGSIZE);
-            h->in_len=recvfrom(h->fd,h->in,MSGSIZE,0,NULL, NULL);
-            //aravind
-//            printf("\n\rrecvfrom in_len %d\n\r", h->in_len);
-            if (h->in_len == -1) {
-                generr(h, "recvfrom: %s", strerror(errno));
-                return -1;
-            }
-            data_len = h->in_len;
-            msg_start = 0;
-            while(msg_start < data_len)
-            {
-                if(msg_start > 0)
-                {
-                    printf("\n\r!!!!!its loooping !!!!!");
-                }
-                printf("\n\r!!!!received code %d Line %d",
-                    h->in[msg_start], __LINE__);
-                packet_len = (h->in[msg_start + 2] * 256) + h->in[msg_start + 3];
-//aravind
-   //             printf("\n\rpacket_len = %d", packet_len);
-                msg_start += packet_len;
-                (*recv_msg_count)++;
-            }
-            //aravind
-//            printf("\n\r!!!!received code %d Line %d from-h %d", 
-  //                  h->in[POS_CODE], __LINE__, h->in[0]);
-            return h->in[POS_CODE];
-        }
-	}
-
-	/*
-         * Scan round-robin to the next server that has some
-         * tries left.  There is guaranteed to be one, or we
-         * would have exited this loop by now.
-	 */
-	cur_srv = h->srv;
-	now = time(NULL);
-	if (h->servers[h->srv].num_tries >= h->servers[h->srv].max_tries) {
-		/* Set next probe time for this server */
-		if (h->servers[h->srv].dead_time) {
-			h->servers[h->srv].is_dead = 1;
-			h->servers[h->srv].next_probe = now +
-			    h->servers[h->srv].dead_time;
-		}
-		do {
-		    	h->srv++;
-			if (h->srv >= h->num_servers)
-				h->srv = 0;
-			if (h->servers[h->srv].is_dead == 0)
-			    	break;
-			if (h->servers[h->srv].dead_time &&
-			    h->servers[h->srv].next_probe <= now) {
-			    	h->servers[h->srv].is_dead = 0;
-				h->servers[h->srv].num_tries = 0;
-				break;
-			}
-		} while (h->srv != cur_srv);
-
-		if (h->srv == cur_srv) {
-			generr(h, "No valid RADIUS responses received");
-			return (-1);
-		}
-	}
-
-	/* Rebind */
-	if (h->bindto != h->servers[h->srv].bindto) {
-	    	h->bindto = h->servers[h->srv].bindto;
-		close(h->fd);
-//aravind
-#if 0
-		if ((h->fd = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1) {
-			generr(h, "Cannot create socket: %s", strerror(errno));
-			return -1;
-		}
-#endif
-        if(proto_tcp)
-        {
-            if ((h->fd = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
-                generr(h, "Cannot create socket: %s", strerror(errno));
-                return -1;
-            }
-        }
-        else
-        {
-            if ((h->fd = socket(AF_INET, SOCK_DGRAM, 0)) == -1) {
-                generr(h, "Cannot create socket: %s", strerror(errno));
-                return -1;
-            }
-        }
-		memset(&sin, 0, sizeof sin);
-		sin.sin_family = AF_INET;
-		sin.sin_addr.s_addr = h->bindto;
-		sin.sin_port = 0;
-		if (bind(h->fd, (const struct sockaddr *)&sin,
-		    sizeof sin) == -1) {
-			generr(h, "bind: %s", strerror(errno));
-			close(h->fd);
-			h->fd = -1;
-			return (-1);
-		}
-	}
-
-	if (h->out[POS_CODE] == RAD_ACCESS_REQUEST) {
-		/* Insert the scrambled password into the request */
-		if (h->pass_pos != 0)
-			insert_scrambled_password(h, h->srv);
-	}
-	insert_message_authenticator(h, 0);
-
-	if (h->out[POS_CODE] != RAD_ACCESS_REQUEST) {
-		/* Insert the request authenticator into the request */
-		memset(&h->out[POS_AUTH], 0, LEN_AUTH);
-		insert_request_authenticator(h, 0);
-	}
-
-    if(proto_tcp)
-    {
-//aravind
-//        printf("\n\rconnect called %s\n\r", __FUNCTION__);
-        if(connect(h->fd, (const struct sockaddr *)&h->servers[h->srv].addr,
-                    sizeof h->servers[h->srv].addr) != 0)
-        {
-            printf("\n\rconnect failed\n\r");
-            return -1;
-        }
-    }
-
-	/* Send the request */
-	n = sendto(h->fd, h->out, h->out_len, 0,
-	    (const struct sockaddr *)&h->servers[h->srv].addr,
-	    sizeof h->servers[h->srv].addr);
-//aravind
-//    printf("\n\rlen = %d out_len %d\n\r", n, h->out_len);
-	if (n != h->out_len)
-		tv->tv_sec = 1; /* Do not wait full timeout if send failed. */
-	else
-		tv->tv_sec = h->servers[h->srv].timeout;
-	h->servers[h->srv].num_tries++;
-	tv->tv_usec = 0;
-	*fd = h->fd;
-
-	return 0;
-}
-
-/*
- * Returns the response type code on success, or -1 on failure.
- */
-int my_rad_send_request(struct rad_handle *h, unsigned char *msg, long long len, 
-                        uint proto_tcp, long long msg_count)
-{
-	struct timeval timelimit;
-	struct timeval tv;
-	long long fd;
-	long long n;
-    long long reply_recvd = 0;
-
-//	n = rad_init_send_request(h, &fd, &tv);
-
-    n = my_rad_add_send_request(h, msg, len, &fd, &tv, proto_tcp);
-	if (n != 0)
-		return n;
-
-	gettimeofday(&timelimit, NULL);
-	timeradd(&tv, &timelimit, &timelimit);
-
-	for ( ; ; ) {
-		fd_set readfds;
-
-		FD_ZERO(&readfds);
-		FD_SET(fd, &readfds);
-
-		n = select(fd + 1, &readfds, NULL, NULL, &tv);
-
-		if (n == -1) {
-			generr(h, "select: %s", strerror(errno));
-//aravind;
-            printf("\n\rselect: %s\n\r", strerror(errno));
-			return -1;
-		}
-
-		if (!FD_ISSET(fd, &readfds)) 
-        {
-			/* Compute a new timeout */
-			gettimeofday(&tv, NULL);
-			timersub(&timelimit, &tv, &tv);
-//aravind
-			if (tv.tv_sec > 0 || (tv.tv_sec == 0 && tv.tv_usec > 0))
-            {
-                printf("\n\rcontinue the select\n\r");
-				/* Continue the select */
-				continue;
-            }
-		}
-
-        //aravind -- remove while to break continious loop
-        reply_recvd = 0;
-        while(reply_recvd < msg_count)
-        {
-    		n = my_rad_continue_send_request(h, n, &fd, &tv, proto_tcp, 
-                                             msg_count, &reply_recvd);
-//            reply_recvd++;
-            printf("\n\rMessage count - %llu", reply_recvd);
-        }
-
-		if (n != 0)
-			return n;
-
-		gettimeofday(&timelimit, NULL);
-		timeradd(&tv, &timelimit, &timelimit);
-	}
 }

@@ -14,6 +14,9 @@
 #include <sys/select.h>
 #include <stdbool.h>
 
+#define TRACE_LOG 1
+#define LOG(args...) if(TRACE_LOG) printf(args)
+
 struct rad_handle * my_rad_init(void);
 
 int main() 
@@ -26,9 +29,9 @@ int main()
     unsigned char msg[MSGSIZE] = {0};
     long long len = 0;
 
-    printf("\n\rNo of Client ? \n\r");
+    LOG("\n\rNo of Client ? \n\r");
     scanf("%llu", &no_clients);
-    printf("\n\rUDP(0)/TCP(1) ?\n\r");
+    LOG("\n\rUDP(0)/TCP(1) ?\n\r");
     scanf("%d", &proto_tcp);
 
     for(i=0; i<no_clients; i++)
@@ -36,42 +39,36 @@ int main()
         rad_h1 = my_rad_init();
         if(rad_h1 == NULL)
         {
-            printf("\n\rInit failed\n\r");
+            LOG("\n\rInit failed\n\r");
             return 0;
         }
         my_rad_add_request(&msg, &len, rad_h1);
     }
     if ((rad_h = rad_auth_open ()) == NULL)
     {
-        printf("Authentication init failure");
+        LOG("Authentication init failure");
         return;
     }
     /** Read the configuration data from radius.conf file */
     if ((ret_value = rad_config (rad_h, NULL)) != 0)
     {
-        printf("Authentication configuration "
+        LOG("Authentication configuration "
                 "failure %llu", ret_value);
         rad_h = NULL;
         return;
     }
 
-    //proto_tcp = false;
-    printf("\n\r!!!!Passing len =%llu to final Msg", len);
+    LOG("\n\r!!!!Passing len =%llu to final Msg", len);
     switch((rc = my_rad_send_request(rad_h, &msg, len, proto_tcp, no_clients)))
     {
-        case RAD_ACCOUNTING_RESPONSE:
-            printf("server response okay.\n");
-            rc = 0;
-            break;
         case -1:
-            fprintf(stderr, "error : %s\n", rad_strerror(rad_h));
+            fprintf(stderr, "Processing Error : %s\n", rad_strerror(rad_h));
             break;
         case RAD_ACCESS_ACCEPT:
-            printf("server response -- ACCEPT.\n");
             rc = 0;
             break;
         default:
-            printf("\n\rmessage code %llu", rc);
+            LOG("\n\rmessage code %llu", rc);
             fprintf(stderr, "invalid message type in response: %llu\n", rc);
             rc = -1;
     }
