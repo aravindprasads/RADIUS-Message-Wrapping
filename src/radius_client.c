@@ -14,9 +14,11 @@
 #include <sys/select.h>
 #include <stdbool.h>
 
-#define TRACE_LOG 1
-#define LOG(args...) if(TRACE_LOG) printf(args)
+#define TRACE_ENABLE 0
+#define TRACE(args...) if(TRACE_ENABLE) printf(args)
 
+#define LOG_ENABLE 1
+#define LOG(args...) if(LOG_ENABLE) printf(args)
 struct rad_handle * my_rad_init(void);
 
 int main() 
@@ -67,7 +69,7 @@ int main()
         return;
     }
 
-    LOG("\n\r!!!!Passing len =%llu to final Msg", len);
+    TRACE("\n\r!!!!Passing len =%llu to final Msg", len);
     switch((rc = my_rad_send_request(rad_h, &msg, len, proto_tcp, no_clients)))
     {
         case -1:
@@ -77,7 +79,7 @@ int main()
             rc = 0;
             break;
         default:
-            LOG("\n\rmessage code %llu", rc);
+            TRACE("\n\rmessage code %llu", rc);
             fprintf(stderr, "invalid message type in response: %llu\n", rc);
             rc = -1;
     }
