@@ -59,22 +59,25 @@ int main(int argc, char**argv)
     pkt->length = htons(sizeof(rad_pkt_t));
     for (;;)
     {
-        LOG("\n\r=====Listening to Client Messages====\n\r");
+        LOG("\n\r====== LISTENING TO UDP CLIENT MESSAGES ======\n\r");
         len = sizeof(cliaddr);
         data_len = recvfrom(sockfd,mesg,MSG_SIZE,0, (struct sockaddr *)&cliaddr,&len);
-        LOG("\n\r=====Received Msg from Client====");
         TRACE("\n\rdata_len = %llu\n\r", data_len);
+
         msg_start = 0;
         msg_no = 0;
         while(msg_start < data_len)
         {
+            LOG("\n\r====== RECEIVED MSG FROM CLIENT ======");
             if(mesg[msg_start] == RAD_REQUEST)
                 LOG("\n\rRADIUS Request from Client (Code = %d)", mesg[msg_start]);
             recvd_pkt_id = mesg[msg_start +1];
-            pkt->id = recvd_pkt_id;
-            TRACE("\n\rmsg_start = %llu\n\r", msg_start);
+            LOG("\n\rPacket ID %d", recvd_pkt_id);
             packet_len = (mesg[msg_start + 2] * 256) + mesg[msg_start + 3];
-            TRACE("\n\rpacket_len = %d\n\r", packet_len);
+            LOG("  Packet_len = %d", packet_len);
+
+            TRACE("\n\rmsg_start = %llu\n\r", msg_start);
+            pkt->id = recvd_pkt_id;
             msg_start += packet_len;
             sendto(sockfd,reply_msg,sizeof(rad_pkt_t),0,(struct sockaddr *)&cliaddr,sizeof(cliaddr));
             msg_no++;

@@ -29,10 +29,19 @@ int main()
     unsigned char msg[MSGSIZE] = {0};
     long long len = 0;
 
-    LOG("\n\rNo of Client ? \n\r");
-    scanf("%llu", &no_clients);
-    LOG("\n\rUDP(0)/TCP(1) ?\n\r");
+    LOG("\n\rTransport Protocol - UDP(0)/TCP(1) ?\n\r");
     scanf("%d", &proto_tcp);
+    if ((proto_tcp < 0) || (proto_tcp > 1)){
+        LOG("\n\rInvalid Transport Protocol selected. Exiting !!\n\r\n\r");
+        return;
+    }
+
+    LOG("\n\rNo of Clients (1 - 1000) ? \n\r");
+    scanf("%llu", &no_clients);
+    if ((no_clients < 1) || (no_clients > 1000)){
+        LOG("\n\rInvalid number of Clients selected. Exiting !!\n\r\n\r");        
+        return;
+    }
 
     for(i=0; i<no_clients; i++)
     {
