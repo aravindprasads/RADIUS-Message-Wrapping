@@ -367,6 +367,7 @@ int my_rad_continue_send_request(struct rad_handle *h, long long selected, long 
     uint8_t header[4];
     long long data_len, msg_start = 0;
     uint16_t packet_len = 0;
+    uint8_t recvd_pkt_id = 0;
     if (selected) {
         TRACE("\n\rselected is set\n\r");
         struct sockaddr_in from;
@@ -375,7 +376,7 @@ int my_rad_continue_send_request(struct rad_handle *h, long long selected, long 
         fromlen = sizeof from;
         if(proto_tcp)
         {
-            //find the peek and get the length
+            /* Peek the received Msg and Get the length */
             data_len = recvfrom(h->fd, header, sizeof(header), MSG_PEEK,
                     NULL, NULL);
             LOG("\n\r====== RECEIVED TCP MSG FROM SERVER ======");
@@ -383,6 +384,12 @@ int my_rad_continue_send_request(struct rad_handle *h, long long selected, long 
             packet_len = (header[2] * 256) + header[3];
             TRACE("\n\rpacket_len = %d\n\r", packet_len);
 
+            if(header[0] == 2)
+            LOG("\n\rReceived RADIUS ACCEPT (Code = %d)", h->in[POS_CODE]);
+            recvd_pkt_id = header[1];
+            LOG("\n\rPacket ID %d", recvd_pkt_id);
+            LOG("  Packet Len = %d", packet_len);
+            /* Receive the msg upto packet length */
             h->in_len=recvfrom(h->fd,h->in,packet_len,0,NULL, NULL);
             TRACE("\n\rrecvfrom in_len %d\n\r", h->in_len);
             if (h->in_len == -1) {
@@ -391,8 +398,8 @@ int my_rad_continue_send_request(struct rad_handle *h, long long selected, long 
             }
             TRACE("\n\rReceived Code %d Line %d from-h %d", 
                     h->in[POS_CODE], __LINE__, h->in[0]);
-            if (h->in[POS_CODE] == 2)
-                LOG("\n\rReceived RADIUS ACCEPT (Code = %d)", h->in[POS_CODE]);
+//            if (h->in[POS_CODE] == 2)
+  //              LOG("\n\rReceived RADIUS ACCEPT (Code = %d)", h->in[POS_CODE]);
             (*recv_msg_count)++;
             return h->in[POS_CODE];
         }
@@ -412,10 +419,12 @@ int my_rad_continue_send_request(struct rad_handle *h, long long selected, long 
             {
                 TRACE("\n\r!!!!received code %d Line %d",
                         h->in[msg_start], __LINE__);
-                if (h->in[POS_CODE] == 2)
+                if (h->in[msg_start] == 2)
                     LOG("\n\rReceived RADIUS ACCEPT (Code = %d)", h->in[POS_CODE]);
+                recvd_pkt_id = h->in[msg_start+1];
+                LOG("\n\rPacket ID %d", recvd_pkt_id);
                 packet_len = (h->in[msg_start + 2] * 256) + h->in[msg_start + 3];
-                TRACE("\n\rpacket_len = %d", packet_len);
+                LOG("  Packet Len = %d", packet_len);
                 msg_start += packet_len;
                 (*recv_msg_count)++;
             }
