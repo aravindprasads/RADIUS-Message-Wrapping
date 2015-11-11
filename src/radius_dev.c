@@ -66,6 +66,13 @@
 #define LOG_ENABLE 1
 #define LOG(args...) if(LOG_ENABLE) printf(args) 
 
+void     generr(struct rad_handle *, const char *, ...)
+                    __printflike(2, 3);
+void     insert_scrambled_password(struct rad_handle *, int);
+void     insert_message_authenticator(struct rad_handle *, int);
+void     insert_request_authenticator(struct rad_handle *, int);
+
+
 /* Initialiaze RADIUS Msg Handle */
 struct rad_handle *my_rad_init(void)
 {
