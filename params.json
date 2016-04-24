@@ -1,0 +1,6 @@
+{
+  "name": "Radius-message-wrapping",
+  "tagline": "RADIUS Message Wrapping",
+  "body": "# RADIUS Message Wrapping\r\n\r\n--> Supported for both TCP and UDP\r\n\r\nProof of Concept for the IETF Draft:\r\nhttps://tools.ietf.org/html/draft-aravind-radext-message-bundling-00 \r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
