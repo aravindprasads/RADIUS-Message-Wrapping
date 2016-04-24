@@ -1,6 +1,6 @@
 {
   "name": "Radius-message-wrapping",
   "tagline": "RADIUS Message Wrapping",
-  "body": "# RADIUS Message Wrapping\r\n\r\n--> Supported for both TCP and UDP\r\n\r\nProof of Concept for the IETF Draft:\r\nhttps://tools.ietf.org/html/draft-aravind-radext-message-bundling-00 \r\n",
+  "body": "# RADIUS Message Wrapping\r\n\r\n--> Supported for both TCP and UDP\r\n\r\nProof of Concept for the IETF Draft:\r\nhttps://tools.ietf.org/html/draft-aravind-radext-message-bundling-00 \r\n\r\nThis draft proposes a mechanism to bundle multiple RADIUS requests in a single RADIUS Message which could assist in improving the overall performance and scalability.\r\n",
   "note": "Don't delete this file! It's used internally to help with page regeneration."
 }
